@@ -199,6 +199,12 @@ void m68k_write_memory_8(unsigned int address, unsigned int value);
 void m68k_write_memory_16(unsigned int address, unsigned int value);
 void m68k_write_memory_32(unsigned int address, unsigned int value);
 
+#if 1 // Nick
+// give emulator a chance to service the trap
+// if successful, continue with instruction after the trap
+int m68k_service_trap(unsigned int vector);
+#endif
+
 /* Special call to simulate undocumented 68k behavior when move.l with a
  * predecrement destination mode is executed.
  * To simulate real 68k behavior, first write the high word to

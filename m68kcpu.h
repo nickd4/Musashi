@@ -1853,6 +1853,13 @@ static inline void m68ki_exception_trap(uint vector)
 /* Trap#n stacks a 0 frame but behaves like group2 otherwise */
 static inline void m68ki_exception_trapN(uint vector)
 {
+#if 1 // Nick
+	// give emulator a chance to service the trap
+	// if successful, continue with instruction after the trap
+	if (m68k_service_trap(vector))
+		return;
+#endif
+
 	uint sr = m68ki_init_exception();
 	m68ki_stack_frame_0000(REG_PC, sr, vector);
 	m68ki_jump_vector(vector);
